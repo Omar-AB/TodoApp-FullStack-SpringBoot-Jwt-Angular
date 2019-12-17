@@ -1,0 +1,113 @@
+<!-- <h1>Salam</h1>
+<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad rem consequuntur exercitationem corporis cumque. Libero, provident commodi! Blanditiis repellendus voluptates reprehenderit ipsum nemo, natus aspernatur labore mollitia dolores quasi nulla eaque quae saepe velit veritatis quos deleniti animi soluta! Amet corporis illo iste accusamus officia earum voluptatem nemo debitis eaque tempore autem recusandae, sunt hic vel optio qui laboriosam totam incidunt itaque dolorem quod aliquam! Doloremque quod iure exercitationem excepturi ex unde reprehenderit repellendus dolor sunt, commodi deleniti, sapiente eos dolore laudantium saepe vitae quasi, molestiae provident adipisci expedita! Consequatur explicabo qui ratione est magnam ex aperiam fugit nihil doloremque.</p>
+
+<img [src]="image" alt="">
+
+
+((.row>.col-12>h1{List of courses})+(.row>.col-12>table.table-striped>(thead>tr>th*5)+tbody>tr>td*5))
+
+<ul>
+    <li *ngFor="let todo of todos">
+        <p>{{ todo.content }}</p>
+        <em>{{ todo.targetDate }}</em>
+
+        {{ todo | json }}
+
+        <input type="checkbox" [ngModel]="todo.done">
+    </li>
+</ul> -->
+<div class="row">
+    <div class="col-6">
+        <h1>List of courses</h1>
+    </div>
+    <div class="col-6 text-right">
+        <a routerLink="/todos/add" class="btn btn-success btn-sm">
+            <i class="fa fa-plus"></i>
+        </a>
+
+        <button  class="btn btn-primary btn-sm" (click)="addstickyNote()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        
+        <div *ngIf="todos.length; then yesTodos else noTodo"></div>
+
+        <ng-template #yesTodos>
+
+            <div class="alert alert-info">
+               {{ todos.length }} todos
+            </div>
+
+            <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Content</th>
+                    <th>Date</th>
+                    <th>Done</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todo of todos; index as i">
+                    <td>{{ todo.id }}</td>
+                    <td>{{ todo.content }}</td>
+                    <td>{{ todo.date | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                        <i (click)="toggleActive(todo)" class="fa sizeIcon" [ngClass]="{
+                            'fa-check-circle text-success': todo.active,
+                            'fa-times-circle text-danger': !todo.active
+                        }"></i>
+                    </td>
+                    <td class="text-right" nowrap>
+                        
+                        <a [routerLink]="['/todos', todo.id]" class="btn btn-info mr-1 btn-sm"><i class="fa fa-eye"></i></a>
+                        <a [routerLink]="['/todos/edit', todo.id]" class="btn mr-1 btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                        <button (click)="delete(todo.id)" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </ng-template>
+        
+        <ng-template #noTodo>
+            <div class="alert alert-warning text-center">
+                No todo available
+            </div>
+        </ng-template>
+        
+       
+    </div>
+</div>
+
+
+<div class="row" >
+        <div class="col-sm-3 col-md-3 " *ngFor="let todo of todos" style="margin-bottom: 12rem;">
+          
+                    <div class="sticky" (dblclick)="delete(todo.id)">
+                        <div class="text-right">
+                            <a [routerLink]="['/todos/edit', todo.id]" class="btn mr-1 btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                            <button (click)="delete(todo.id)" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                            
+                        </div>
+                            <b>Note: {{todo.date | date}}</b><br>
+                            
+                            {{todo.content}};
+                            <!--
+
+                                <ejs-inplaceeditor #inplace_editor mode="Inline"    [ngModel]="todo.content" type="Text" ></ejs-inplaceeditor> 
+                            -->
+                          </div><br>
+                          <br><br>
+                          
+          
+        </div>
+
+      </div>
+
+ 

@@ -1,0 +1,53 @@
+
+<div class="row">
+    <div class="col-12">
+            <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/todos">Todo list</a></li>
+                    <li class="breadcrumb-item active">Create</li>
+                    
+                  </ol>
+    </div>
+</div>
+
+<div class="row my-2">
+        <div class="col-6 mx-auto">
+    
+            <form #f="ngForm" (ngSubmit)="addTodo(f)">
+            <div class="form-group">
+                <label for="Content">Content</label>
+                <textarea
+                    required 
+                    minlength="3"
+                    maxlength="30"
+                    pattern="[a-zA-Z0-9 ]*"
+                    name="content"
+                    #content="ngModel" 
+                    ngModel 
+                    id="Content" rows="2" 
+                    class="form-control">
+                </textarea>
+                <div class="alert alert-danger" *ngIf="content.touched && content.invalid">
+                    <div *ngIf="content.errors.required">
+                        This field is Required !
+                    </div>
+                    <div *ngIf="content.errors.minlength">
+                        This field sould be great than 3 caracters !
+                    </div>
+                    <div *ngIf="content.errors.pattern">
+                        This field should be respect our pattern !
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input name="active" ngModel type="checkbox" class="form-check-input" id="">
+                Checked
+              </label>
+            </div>
+    
+            <button [disabled]="f.invalid" type="submit" class="btn btn-block btn-primary">
+                <i class="fa fa-send"></i> Add Todo
+            </button>
+        </form>
+        </div>
+    </div>

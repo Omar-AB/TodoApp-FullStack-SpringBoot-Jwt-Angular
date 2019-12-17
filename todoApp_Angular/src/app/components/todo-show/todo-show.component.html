@@ -1,0 +1,24 @@
+
+<div class="row mt-5">
+    <div class="col-6 mx-auto">
+
+        <div class="text-right">
+            <a routerLink="/todos">
+                <i class="fa fa-arrow-left"></i> return back
+            </a>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item active"><h1>My Todo</h1></li>
+            <li class="list-group-item">{{ todo.content }}</li>
+            <li class="list-group-item">
+                    <i class="fa sizeIcon" [ngClass]="{
+                        'fa-check-circle text-success': todo.active,
+                        'fa-times-circle text-danger': !todo.active
+                    }"></i> <em>{{ todo.date | date: 'dd/MM/yyyy' }}</em>
+            </li>
+            
+        </ul>
+
+    </div>
+</div>
